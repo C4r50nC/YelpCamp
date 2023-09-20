@@ -1,14 +1,11 @@
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
+const Campground = require("./models/campground");
 
 mongoose.connect(
   "mongodb+srv://xichen059:KWYT96rd8mlVy13I@yelpcamp.ahupr4r.mongodb.net/?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-  }
+  {}
 );
 
 const db = mongoose.connection;
@@ -24,6 +21,14 @@ app.set("views", path.join(__dirname, "views"));
 
 app.get("/", (req, res) => {
   res.render("home");
+});
+
+app.get("/makecampground", async (req, res) => {
+  const camp = new Campground({
+    title: "My Backyard",
+  });
+  await camp.save();
+  res.send(camp);
 });
 
 app.listen(3000, () => {
