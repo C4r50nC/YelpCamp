@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const cities = require("./cities");
-const { places, descriptors } = require("./seedHelpers");
+const { places, descriptors } = require("./seed-helper");
 const Campground = require("../models/campground");
 
 mongoose.connect(
