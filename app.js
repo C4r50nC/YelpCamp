@@ -31,15 +31,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 
-const expiryTimeInMilliSec = 1000 * 60 * 60 * 24 * 7; // One week
+const EXIPRY_TIME_IN_MILLISECONDS = 1000 * 60 * 60 * 24 * 7; // One week
 const sessionConfig = {
   secret: "tempsecret",
   resave: false,
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
-    expires: Date.now() + expiryTimeInMilliSec,
-    maxAge: expiryTimeInMilliSec,
+    expires: Date.now() + EXIPRY_TIME_IN_MILLISECONDS,
+    maxAge: EXIPRY_TIME_IN_MILLISECONDS,
   },
 };
 app.use(session(sessionConfig));
