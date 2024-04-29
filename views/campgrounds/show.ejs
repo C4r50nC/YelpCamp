@@ -23,7 +23,7 @@
         <form
           class="d-inline"
           action="/campgrounds/<%= campground._id %>?_method=DELETE"
-          method="POST"
+          method="post"
         >
           <button class="btn btn-danger">Delete</button>
         </form>
@@ -36,7 +36,7 @@
     <h2>Leave a Review</h2>
     <form
       action="/campgrounds/<%= campground._id %>/reviews"
-      method="POST"
+      method="post"
       class="mb-3 validated-form"
       novalidate
     >
@@ -72,7 +72,7 @@
         <p class="card-text">Review: <%= review.body %></p>
         <form
           action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
-          method="POST"
+          method="post"
         >
           <button class="btn btn-sm btn-danger">Delete</button>
         </form>
