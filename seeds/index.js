@@ -21,7 +21,9 @@ const seedDb = async () => {
   for (let i = 0; i < 50; i++) {
     const random1000 = Math.floor(Math.random() * 1000);
     const price = Math.floor(Math.random() * 20) + 10;
+    const AUTHOR_ID = "662f7301edc220145db8df25"; // Need to register a user first to get the ID
     const camp = new Campground({
+      author: AUTHOR_ID,
       location: `${cities[random1000].city}, ${cities[random1000].state}`,
       title: `${sample(descriptors)} ${sample(places)}`,
       image: "https://source.unsplash.com/collection/483251",
