@@ -1,23 +1,11 @@
 const express = require("express");
-// Add mergeParams to ensure :id in the route prefix can be accessed
+// Add mergeParams to ensure :id in the route prefix can be accessed as req.params.id
 const router = express.Router({ mergeParams: true });
-const { reviewSchema } = require("../schemas");
-
+const { validateReview } = require("../middleware");
 const catchAsync = require("../utils/catch-async");
-const ExpressError = require("../utils/express-error");
 
 const Campground = require("../models/campground");
 const Review = require("../models/review");
-
-const validateReview = (req, _res, next) => {
-  const { error } = reviewSchema.validate(req.body);
-  if (error) {
-    const msg = error.details.map((elem) => elem.message).join(",");
-    throw new ExpressError(msg, 400);
-  } else {
-    next();
-  }
-};
 
 router.post(
   "/",

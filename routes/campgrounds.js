@@ -1,22 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { campgroundSchema } = require("../schemas");
-const { isLoggedIn } = require("../middleware");
+const { isAuthor, isLoggedIn, validateCampground } = require("../middleware");
 
 const catchAsync = require("../utils/catch-async");
-const ExpressError = require("../utils/express-error");
 
 const Campground = require("../models/campground");
-
-const validateCampground = (req, _res, next) => {
-  const { error } = campgroundSchema.validate(req.body);
-  if (error) {
-    const msg = error.details.map((elem) => elem.message).join(",");
-    throw new ExpressError(msg, 400);
-  } else {
-    next();
-  }
-};
 
 router.get("/", async (_req, res) => {
   const campgrounds = await Campground.find({});
@@ -57,6 +45,7 @@ router.get(
 router.get(
   "/:id/edit",
   isLoggedIn,
+  isAuthor,
   catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     if (!campground) {
@@ -70,6 +59,7 @@ router.get(
 router.put(
   "/:id",
   isLoggedIn,
+  isAuthor,
   validateCampground,
   catchAsync(async (req, res) => {
     const { id } = req.params;
@@ -84,6 +74,7 @@ router.put(
 router.delete(
   "/:id",
   isLoggedIn,
+  isAuthor,
   catchAsync(async (req, res) => {
     const { id } = req.params;
     await Campground.findByIdAndDelete(id);
