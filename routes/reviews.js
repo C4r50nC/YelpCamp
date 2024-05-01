@@ -1,7 +1,7 @@
 const express = require("express");
 // Add mergeParams to ensure :id in the route prefix can be accessed as req.params.id
 const router = express.Router({ mergeParams: true });
-const { isLoggedIn, validateReview } = require("../middleware");
+const { isLoggedIn, isReviewAuthor, validateReview } = require("../middleware");
 const catchAsync = require("../utils/catch-async");
 
 const Campground = require("../models/campground");
@@ -26,6 +26,7 @@ router.post(
 router.delete(
   "/:reviewId",
   isLoggedIn,
+  isReviewAuthor,
   catchAsync(async (req, res) => {
     const { id, reviewId } = req.params;
     await Campground.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
