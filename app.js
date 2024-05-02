@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
@@ -14,10 +18,7 @@ const userRoutes = require("./routes/users");
 const campgroundRoutes = require("./routes/campgrounds");
 const reviewRoutes = require("./routes/reviews");
 
-mongoose.connect(
-  "mongodb+srv://xichen059:KWYT96rd8mlVy13I@yelpcamp.ahupr4r.mongodb.net/?retryWrites=true&w=majority",
-  {}
-);
+mongoose.connect(process.env.MONGODB_CONNSTRING, {});
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Connection error:"));

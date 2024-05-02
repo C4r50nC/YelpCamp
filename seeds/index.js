@@ -3,10 +3,7 @@ const cities = require("./cities");
 const { places, descriptors } = require("./seed-helper");
 const Campground = require("../models/campground");
 
-mongoose.connect(
-  "mongodb+srv://xichen059:KWYT96rd8mlVy13I@yelpcamp.ahupr4r.mongodb.net/?retryWrites=true&w=majority",
-  {}
-);
+mongoose.connect(process.env.MONGODB_CONNSTRING, {});
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Connection error:"));
