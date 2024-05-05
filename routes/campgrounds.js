@@ -17,8 +17,8 @@ router
     catchAsync(campgrounds.createCampground)
   );
 
+// Place this route before :id route to avoid the word "new" being read as ID
 router.get("/new", isLoggedIn, campgrounds.renderNewForm);
-// Place before :id route to avoid "new" being read as ID
 
 router
   .route("/:id")
@@ -26,6 +26,7 @@ router
   .put(
     isLoggedIn,
     isAuthor,
+    upload.array("image"),
     validateCampground,
     catchAsync(campgrounds.updateCampground)
   )
