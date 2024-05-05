@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 const mongoose = require("mongoose");
 const cities = require("./cities");
 const { places, descriptors } = require("./seed-helper");
@@ -23,10 +27,20 @@ const seedDb = async () => {
       author: AUTHOR_ID,
       location: `${cities[random1000].city}, ${cities[random1000].state}`,
       title: `${sample(descriptors)} ${sample(places)}`,
-      image: "https://source.unsplash.com/collection/483251",
       description:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Non nisi recusandae cumque numquam, vero voluptatem dolorum harum quasi explicabo, ut doloremque sit suscipit, repellendus ex quos qui reprehenderit accusamus nemo!",
       price,
+      // Need to upload samples to Cloudinary first for url and filename
+      images: [
+        {
+          url: "https://res.cloudinary.com/dkfwmedqj/image/upload/v1714874248/yelp-camp/lxqbgd9xzidyekutwdcm.jpg",
+          filename: "yelp-camp/lxqbgd9xzidyekutwdcm",
+        },
+        {
+          url: "https://res.cloudinary.com/dkfwmedqj/image/upload/v1714874249/yelp-camp/u1ajyiadzn4whzrrjgve.jpg",
+          filename: "yelp-camp/u1ajyiadzn4whzrrjgve",
+        },
+      ],
     });
     await camp.save();
   }
