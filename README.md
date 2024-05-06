@@ -10,3 +10,4 @@ A website for reviewing campgrounds.
 4. Click _Register_ on the top right corner to register a user
 5. Find the user ID from the database and update **seeds/index.js**
 6. Run `node seeds/index.js` to generate campgrounds
+7. Run `node app.js` or `nodemon app.js` to start the server again
