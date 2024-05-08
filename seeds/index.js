@@ -31,6 +31,7 @@ const seedDb = async () => {
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Non nisi recusandae cumque numquam, vero voluptatem dolorum harum quasi explicabo, ut doloremque sit suscipit, repellendus ex quos qui reprehenderit accusamus nemo!",
       price,
       // Need to upload samples to Cloudinary first for url and filename
+      // Deleting these will cause ERRORS as all image will be deleted from Cloudinary which affects all generated campgrounds
       images: [
         {
           url: "https://res.cloudinary.com/dkfwmedqj/image/upload/v1714874248/yelp-camp/lxqbgd9xzidyekutwdcm.jpg",
