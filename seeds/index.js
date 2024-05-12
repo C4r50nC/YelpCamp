@@ -22,7 +22,8 @@ const seedDb = async () => {
   for (let i = 0; i < 50; i++) {
     const random1000 = Math.floor(Math.random() * 1000);
     const price = Math.floor(Math.random() * 20) + 10;
-    const AUTHOR_ID = "662f7301edc220145db8df25"; // Need to register a user first to get the ID
+    // Need to register a user first to get the ID
+    const AUTHOR_ID = "662f7301edc220145db8df25";
     const camp = new Campground({
       author: AUTHOR_ID,
       location: `${cities[random1000].city}, ${cities[random1000].state}`,
@@ -30,8 +31,11 @@ const seedDb = async () => {
       description:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Non nisi recusandae cumque numquam, vero voluptatem dolorum harum quasi explicabo, ut doloremque sit suscipit, repellendus ex quos qui reprehenderit accusamus nemo!",
       price,
-      // Need to upload samples to Cloudinary first for url and filename
-      // Deleting these will cause ERRORS as all image will be deleted from Cloudinary which affects all generated campgrounds
+      geometry: {
+        type: "Point",
+        coordinates: [-122.330286, 47.603243],
+      },
+      // Hardcoded image URLs from Cloudinary
       images: [
         {
           url: "https://res.cloudinary.com/dkfwmedqj/image/upload/v1714874248/yelp-camp/lxqbgd9xzidyekutwdcm.jpg",
