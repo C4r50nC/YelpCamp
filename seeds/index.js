@@ -19,14 +19,15 @@ const sample = (array) => array[Math.floor(Math.random() * array.length)];
 
 const seedDb = async () => {
   await Campground.deleteMany({});
-  for (let i = 0; i < 50; i++) {
-    const random1000 = Math.floor(Math.random() * 1000);
+  const GENERATE_CAMPGROUND_NUMBER = 300;
+  for (let i = 0; i < GENERATE_CAMPGROUND_NUMBER; i++) {
+    const RANDOM1000 = Math.floor(Math.random() * 1000);
     const price = Math.floor(Math.random() * 20) + 10;
     // Need to register a user first to get the ID
     const AUTHOR_ID = "662f7301edc220145db8df25";
     const camp = new Campground({
       author: AUTHOR_ID,
-      location: `${cities[random1000].city}, ${cities[random1000].state}`,
+      location: `${cities[RANDOM1000].city}, ${cities[RANDOM1000].state}`,
       title: `${sample(descriptors)} ${sample(places)}`,
       description:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Non nisi recusandae cumque numquam, vero voluptatem dolorum harum quasi explicabo, ut doloremque sit suscipit, repellendus ex quos qui reprehenderit accusamus nemo!",
@@ -34,8 +35,8 @@ const seedDb = async () => {
       geometry: {
         type: "Point",
         coordinates: [
-          cities[random1000].longitude,
-          cities[random1000].latitude,
+          cities[RANDOM1000].longitude,
+          cities[RANDOM1000].latitude,
         ],
       },
       // Hardcoded image URLs from Cloudinary
