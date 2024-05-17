@@ -41,11 +41,13 @@ app.use(mongoSanitize());
 
 const EXIPRY_TIME_IN_MILLISECONDS = 1000 * 60 * 60 * 24 * 7; // One week
 const sessionConfig = {
+  name: "session",
   secret: "tempsecret",
   resave: false,
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
+    // secure: true, // Need to uncomment for deployment. Sets cookie to be allowed for Https only.
     expires: Date.now() + EXIPRY_TIME_IN_MILLISECONDS,
     maxAge: EXIPRY_TIME_IN_MILLISECONDS,
   },
