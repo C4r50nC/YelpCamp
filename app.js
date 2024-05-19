@@ -21,6 +21,8 @@ const userRoutes = require("./routes/users");
 const campgroundRoutes = require("./routes/campgrounds");
 const reviewRoutes = require("./routes/reviews");
 
+const MongoStore = require("connect-mongo");
+
 mongoose.connect(process.env.MONGODB_CONNSTRING, {});
 
 const db = mongoose.connection;
@@ -40,8 +42,21 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(mongoSanitize());
 
+const UPDATE_FREQUENCY_IN_SECONDS = 24 * 60 * 60; // One day
+const store = MongoStore.create({
+  mongoUrl: process.env.MONGODB_CONNSTRING,
+  touchAfter: UPDATE_FREQUENCY_IN_SECONDS,
+  crypto: {
+    secret: "tempsecret",
+  },
+});
+store.on("error", (e) => {
+  console.log("SESSION STORE ERROR", e);
+});
+
 const EXIPRY_TIME_IN_MILLISECONDS = 1000 * 60 * 60 * 24 * 7; // One week
 const sessionConfig = {
+  store,
   name: "session",
   secret: "tempsecret",
   resave: false,
@@ -53,6 +68,7 @@ const sessionConfig = {
     maxAge: EXIPRY_TIME_IN_MILLISECONDS,
   },
 };
+
 app.use(session(sessionConfig));
 app.use(flash());
 app.use(helmet());
