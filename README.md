@@ -9,5 +9,6 @@ A website for reviewing campgrounds.
 3. Run `node app.js` or `nodemon app.js` to start the server
 4. Click _Register_ on the top right corner to register a user
 5. Find the user ID from the database and update **seeds/index.js**
-6. Run `node seeds/index.js` to generate campgrounds
-7. Run `node app.js` or `nodemon app.js` to start the server again
+6. Get the Cloudinary image urls and update **seeds/index.js** images
+7. Run `node seeds/index.js` to generate campgrounds
+8. Run `node app.js` or `nodemon app.js` to start the server again
